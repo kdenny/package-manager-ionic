@@ -1,0 +1,95 @@
+<!--<ion-header no-shadow>-->
+  <!--<ion-navbar>-->
+    <!--<ion-buttons end *ngIf="showSkip">-->
+      <!--<button ion-button (click)="startApp()" color="primary">{{ 'TUTORIAL_SKIP_BUTTON' | translate}}</button>-->
+    <!--</ion-buttons>-->
+  <!--</ion-navbar>-->
+<!--</ion-header>-->
+
+<ion-content no-bounce>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-lg-8 col-xl-8>
+        <ion-row>
+          <img [src]="slide.image" class="top-logo" />
+          <span>
+            <ion-auto-complete class='search-bar' [dataProvider]="filter" (itemSelected)="itemSelected($event)" (autocomplete)="off" [options]="{ placeholder : 'Search Apartment', autocomplete: 'off' }"></ion-auto-complete>
+            <ion-fab>
+              <button ion-fab color="primary" (click)="recordDelivery()" class="add-btn">Button</button>
+            </ion-fab>
+          </span>
+          <ion-item>
+            <!--<ion-label color="primary">Inline Label</ion-label>-->
+
+            <!--<ion-input placeholder="Search Apartment" type="text" [(ngModel)]="searchText" (keyup)="onChange($event)"></ion-input>-->
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <ion-list *ngIf="filter.searchText">
+            <ion-item *ngFor="let package of api.newPackages">
+              <ion-avatar item-start>
+                <img src="img/avatar-finn.png">
+              </ion-avatar>
+              <h2>{{package.apartment_no.number}}</h2>
+              <h3>{{package.recipient.name}}</h3>
+            </ion-item>
+          </ion-list>
+          <ion-list *ngIf="!filter.searchText">
+            <ion-list-header>
+              Packages 2
+            </ion-list-header>
+            <ion-item *ngFor="let package of api.packages">
+              <ion-avatar item-start>
+                <img src="img/avatar-finn.png">
+              </ion-avatar>
+              <h2>{{package.apartment_no.number}}</h2>
+              <h3>{{package.recipient.name}}</h3>
+            </ion-item>
+          </ion-list>
+
+        </ion-row>
+
+
+
+
+        <!--<ion-row>-->
+          <!--<ion-col col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6>-->
+            <!--<ion-card (click)="recordDelivery()" [class.inactive]="mode=='pickup'">-->
+              <!--<ion-card-content>-->
+                <!--<ion-row>-->
+                  <!--<ion-icon class="button-icon" name="md-filing"></ion-icon>-->
+                <!--</ion-row>-->
+                <!--<ion-row>-->
+                  <!--<h3 class="button-label">Delivery</h3>-->
+                <!--</ion-row>-->
+              <!--</ion-card-content>-->
+            <!--</ion-card>-->
+          <!--</ion-col>-->
+          <!--<ion-col col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 [class.inactive]="mode=='delivery'">-->
+            <!--<ion-card (click)="recordPickup()">-->
+              <!--<ion-card-content>-->
+                <!--<ion-row >-->
+                  <!--<ion-icon class="button-icon" name="ios-arrow-dropup-circle"></ion-icon>-->
+                <!--</ion-row>-->
+                <!--<ion-row>-->
+                  <!--<h3 class="button-label">Pick Up</h3>-->
+                <!--</ion-row>-->
+              <!--</ion-card-content>-->
+            <!--</ion-card>-->
+          <!--</ion-col>-->
+        <!--</ion-row>-->
+        <!--<ion-row class="search-form" *ngIf="!autocomplete.selectedApartment && mode=='delivery'">-->
+            <!--<h2>Delivery Recipient</h2>-->
+            <!--<ion-auto-complete [dataProvider]="autocomplete" (itemSelected)="itemSelected($event)" [options]="{ placeholder : 'Enter Apartment Number or Resident Name' }"></ion-auto-complete>-->
+        <!--</ion-row>-->
+        <!--<ion-row class="search-form" *ngIf="!autocomplete.selectedApartment && mode=='pickup'">-->
+            <!--<h2>Pick Up Package For:</h2>-->
+            <!--<ion-auto-complete [dataProvider]="autocomplete" (itemSelected)="itemSelected($event)" [options]="{ placeholder : 'Enter Apartment Number or Resident Name' }"></ion-auto-complete>-->
+        <!--</ion-row>-->
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+
+</ion-content>

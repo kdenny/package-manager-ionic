@@ -1,0 +1,65 @@
+<!--
+  Generated template for the Delivery page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <img [src]="imgUrl">
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row class="search-form" *ngIf="!autocomplete.selectedApartment">
+      <h2>Enter the apartment number the current package is addressed to</h2>
+      <ion-auto-complete [dataProvider]="autocomplete" (itemSelected)="itemSelected($event)"></ion-auto-complete>
+    </ion-row>
+    <ion-row *ngIf="autocomplete.selectedApartment">
+      <h2>Receiving Package for Apartment #{{autocomplete.selectedApartment.number}}</h2>
+    </ion-row>
+    <ion-row class="delivery-form" *ngIf="autocomplete.selectedApartment">
+      <ion-list radio-group [(ngModel)]="selectedResident" *ngIf="autocomplete.selectedApartment.residents">
+          <ion-list-header>
+            Select resident name
+          </ion-list-header>
+          <ion-item *ngFor="let item of autocomplete.selectedApartment.residents; let i = index; " style="margin-top: -0.5vh">
+            <ion-label>{{item.name}}</ion-label>
+            <ion-radio checked="true" value={{i}}></ion-radio>
+          </ion-item>
+        </ion-list>
+    </ion-row>
+    <ion-row>
+      <ion-list radio-group [(ngModel)]="packageType" *ngIf="autocomplete.selectedApartment">
+        <ion-list-header>
+          Select package type
+        </ion-list-header>
+        <ion-item *ngFor="let ptype of packageTypes; let j = index; " style="margin-top: -0.5vh">
+          <ion-label>{{ptype}}</ion-label>
+          <ion-radio checked="true" value={{ptype}}></ion-radio>
+        </ion-item>
+
+         <button ion-button (click)="logForm()">Submit</button>
+
+      </ion-list>
+    </ion-row>
+    <ion-row *ngIf="deliveries.length > 0">
+      <h2>Current Packages</h2>
+      <ion-item *ngFor="let deli of deliveries">
+        {{deli.package_type}} for {{ deli.resident.name }} in {{ deli.apartment_no }}
+      </ion-item>
+      <button ion-button outline icon-right (click)="postDeliveries()" *ngIf="deliveries.length > 0" >
+        Send Notifications
+        <ion-icon name="star"></ion-icon>
+      </button>
+    </ion-row>
+
+  </ion-grid>
+
+
+
+</ion-content>
