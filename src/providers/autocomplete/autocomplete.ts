@@ -51,9 +51,10 @@ export class ApartmentAutocompleteService implements AutoCompleteService {
       this.api.newPackages = null;
     }
 
-    return this.http.get("http://127.0.0.1:8000/apartments/").map(result =>
-        result.json().filter(item => item['number'].startsWith(keyword) )
-        );
+    return this.http.get("http://packagerat.pythonanywhere.com/apartments/").map(result =>
+        result.json().filter(item => item['number'].startsWith(keyword)));
+
+        //result.json().filter(item => item['number'].startsWith(keyword) || item['residents'][0]['name'].startsWith(keyword)));
 
   }
 

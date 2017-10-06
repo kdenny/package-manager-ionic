@@ -14,10 +14,13 @@
 
 
 <ion-content padding>
+  <ion-fab top right >
+    <button ion-fab color="primary" (click)="goBackHome()" icon><ion-icon name="backspace"></ion-icon></button>
+  </ion-fab>
   <ion-grid>
     <ion-row class="search-form" *ngIf="!autocomplete.selectedApartment">
       <h2>Enter the apartment number the current package is addressed to</h2>
-      <ion-auto-complete [dataProvider]="autocomplete" (itemSelected)="itemSelected($event)"></ion-auto-complete>
+      <ion-auto-complete [dataProvider]="autocomplete" (itemSelected)="itemSelected($event)" [options]="{ placeholder : 'Search Apartment'}"></ion-auto-complete>
     </ion-row>
     <ion-row *ngIf="autocomplete.selectedApartment">
       <h2>Receiving Package for Apartment #{{autocomplete.selectedApartment.number}}</h2>

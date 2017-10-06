@@ -17,6 +17,7 @@ import { Api } from '../providers/providers';
 import { ApartmentAutocompleteService } from '../providers/providers';
 import { ApartmentFilterService } from '../providers/providers';
 import { MyApp } from './app.component';
+import {PickupModal} from '../pages/pickup/pickup';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -41,7 +42,8 @@ export function provideSettings(storage: Storage) {
 
 @NgModule({
   declarations: [
-    MyApp
+    MyApp,
+    PickupModal
   ],
   imports: [
     BrowserModule,
@@ -58,7 +60,8 @@ export function provideSettings(storage: Storage) {
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp
+    MyApp,
+    PickupModal
   ],
   providers: [
     Api,

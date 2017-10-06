@@ -1,19 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, MenuController, NavController, Platform } from 'ionic-angular';
+import { IonicPage, MenuController, NavController, ModalController, Platform } from 'ionic-angular';
 
 import { TranslateService } from '@ngx-translate/core';
 import { ApartmentAutocompleteService } from '../../providers/autocomplete/autocomplete';
 import { ApartmentFilterService } from '../../providers/autocomplete/filter';
 
 import { Api } from '../../providers/api/api';
+import { PickupModal } from '../pickup/pickup';
 
-
-
-export interface Slide {
-  title: string;
-  description: string;
-  image: string;
-}
 
 @IonicPage()
 @Component({
@@ -22,7 +16,7 @@ export interface Slide {
 })
 
 export class TutorialPage implements OnInit{
-  slide: Slide;
+  slide: {};
   showSkip = true;
   dir: string = 'ltr';
   mode: string = null;
@@ -32,26 +26,16 @@ export class TutorialPage implements OnInit{
   currentPackages = [];
 
   constructor(public navCtrl: NavController, public menu: MenuController, translate: TranslateService,
+              public modalCtrl: ModalController,
               public platform: Platform, public autocomplete: ApartmentAutocompleteService, public api: Api, public filter: ApartmentFilterService) {
     this.dir = platform.dir();
     this.autocomplete.selectedApartment = null;
-    translate.get(["TUTORIAL_SLIDE1_TITLE",
-      "TUTORIAL_SLIDE1_DESCRIPTION",
-      "TUTORIAL_SLIDE2_TITLE",
-      "TUTORIAL_SLIDE2_DESCRIPTION",
-      "TUTORIAL_SLIDE3_TITLE",
-      "TUTORIAL_SLIDE3_DESCRIPTION",
-    ]).subscribe(
-      (values) => {
-        console.log('Loaded values', values);
-        this.slide =
+    this.slide =
           {
             title: "Welcome to the Package Inventory System",
-            description: values.TUTORIAL_SLIDE1_DESCRIPTION,
             image: 'assets/img/westlofts-logo.png',
           }
         ;
-      });
   }
 
   startApp() {
@@ -79,13 +63,21 @@ export class TutorialPage implements OnInit{
           });
   }
 
-  recordPickup() {
-    this.mode = 'pickup';
-    console.log(this.mode)
-    //this.navCtrl.setRoot('WelcomePage', {}, {
-    //  animate: true,
-    //  direction: 'forward'
-    //});
+  recordPickup(apartment) {
+
+    this.api.getPackagesByApartment(apartment).then(data => {
+       let pickupModal = this.modalCtrl.create(PickupModal,
+         {
+           packages: data,
+           apartment_no: apartment
+         }
+       );
+       pickupModal.onDidDismiss(data => {
+         console.log(data);
+       });
+       pickupModal.present();
+    })
+
   }
 
   onChange(event) {

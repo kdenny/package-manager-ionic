@@ -49,15 +49,23 @@ export class DeliveryPage {
     this.packageType = null;
   }
 
+  goBackHome() {
+    this.navCtrl.setRoot('TutorialPage', {}, {
+      animate: true,
+      direction: 'back'
+    });
+  }
+
   itemSelected(event) {
     this.autocomplete.selectedApartment = event;
   }
 
   postDeliveries() {
     this.api.addPackages(this.deliveries).then(
-      data => (this.deliveries = [])
-    );
-
+      data => {
+        this.deliveries = [];
+        this.goBackHome();
+      })
   }
 
 }

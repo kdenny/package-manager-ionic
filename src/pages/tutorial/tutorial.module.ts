@@ -6,7 +6,7 @@ import { AutoCompleteModule } from 'ionic2-auto-complete';
 
 @NgModule({
   declarations: [
-    TutorialPage,
+    TutorialPage
   ],
   imports: [
     IonicPageModule.forChild(TutorialPage),

@@ -17,17 +17,20 @@ page-tutorial {
   }
 
   .search-bar {
-    width: 75vw;
+    width: 90vw;
     display: inline-block;
     z-index: 20;
   }
 
   .add-btn {
-    width: 15vw;
-    top: -8vh;
-    left: 82vw;
     display: inline-block;
+    font-size: 3.4rem;
+    margin-top: 19.5vh;
     z-index: 1;
+  }
+
+  .fab-ios-primary {
+    background-color: black;
   }
 
   .button-icon {

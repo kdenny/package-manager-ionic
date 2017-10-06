@@ -1,0 +1,35 @@
+<ion-content scroll="false">
+  <div >Deezy</div>
+  <ion-list *ngIf="!confirmMode">
+    <ion-list-header>
+      Packages for Apartment #{{apartment_no}}
+    </ion-list-header>
+    <ion-item *ngFor="let package of packages">
+      <ion-avatar item-start *ngIf="package.package_type=='Envelope'">
+        <ion-icon name="mail"></ion-icon>
+      </ion-avatar>
+      <ion-avatar item-start *ngIf="package.package_type=='Small Box'">
+        <ion-icon name="albums"></ion-icon>
+      </ion-avatar>
+      <ion-avatar item-start *ngIf="package.package_type=='Large Box'">
+        <ion-icon name="cube"></ion-icon>
+      </ion-avatar>
+      <ion-label>{{package.package_type}} for {{package.recipient.name}}</ion-label>
+      <ion-checkbox [(ngModel)]="package.selected" (ionChange)="selectPackage(package)"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+  <div *ngIf="selectedPackages && !confirmMode">
+      <button ion-button color="dark" (click)="enterConfirm()">Pickup {{selectedPackages.length}} of {{packages.length}} packages</button>
+  </div>
+  <ion-row *ngIf="confirmMode">
+     <ion-item *ngFor="let type of ptypes">
+        <ion-icon name="mail" *ngIf="type=='Envelope'"></ion-icon>
+        <ion-icon name="albums" *ngIf="type=='Small Box'"></ion-icon>
+
+       <ion-icon name="cube" *ngIf="type=='Large Box'"></ion-icon>
+      <h3>{{selectedByType[type].length}}</h3>
+
+    </ion-item>
+  </ion-row>
+  <button (click)="dismiss()">Click Me</button>
+</ion-content>

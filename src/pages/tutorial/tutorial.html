@@ -14,8 +14,8 @@
           <img [src]="slide.image" class="top-logo" />
           <span>
             <ion-auto-complete class='search-bar' [dataProvider]="filter" (itemSelected)="itemSelected($event)" (autocomplete)="off" [options]="{ placeholder : 'Search Apartment', autocomplete: 'off' }"></ion-auto-complete>
-            <ion-fab>
-              <button ion-fab color="primary" (click)="recordDelivery()" class="add-btn">Button</button>
+            <ion-fab top right >
+              <button ion-fab color="primary" (click)="recordDelivery()" class="add-btn" icon><ion-icon name="add"></ion-icon></button>
             </ion-fab>
           </span>
           <ion-item>
@@ -26,9 +26,15 @@
         </ion-row>
         <ion-row>
           <ion-list *ngIf="filter.searchText">
-            <ion-item *ngFor="let package of api.newPackages">
-              <ion-avatar item-start>
-                <img src="img/avatar-finn.png">
+            <ion-item *ngFor="let package of api.newPackages" (click)="recordPickup(package.id)">
+              <ion-avatar item-start *ngIf="package.package_type=='Envelope'">
+                <ion-icon name="mail"></ion-icon>
+              </ion-avatar>
+              <ion-avatar item-start *ngIf="package.package_type=='Small Box'">
+                <ion-icon name="albums"></ion-icon>
+              </ion-avatar>
+              <ion-avatar item-start *ngIf="package.package_type=='Large Box'">
+                <ion-icon name="cube"></ion-icon>
               </ion-avatar>
               <h2>{{package.apartment_no.number}}</h2>
               <h3>{{package.recipient.name}}</h3>
@@ -38,9 +44,15 @@
             <ion-list-header>
               Packages 2
             </ion-list-header>
-            <ion-item *ngFor="let package of api.packages">
-              <ion-avatar item-start>
-                <img src="img/avatar-finn.png">
+            <ion-item *ngFor="let package of api.packages" (click)="recordPickup(package.apartment_no.number)">
+              <ion-avatar item-start *ngIf="package.package_type=='Envelope'">
+                <ion-icon name="mail"></ion-icon>
+              </ion-avatar>
+              <ion-avatar item-start *ngIf="package.package_type=='Small Box'">
+                <ion-icon name="albums"></ion-icon>
+              </ion-avatar>
+              <ion-avatar item-start *ngIf="package.package_type=='Large Box'">
+                <ion-icon name="cube"></ion-icon>
               </ion-avatar>
               <h2>{{package.apartment_no.number}}</h2>
               <h3>{{package.recipient.name}}</h3>

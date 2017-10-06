@@ -3,6 +3,8 @@ import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
 import { Http, RequestOptions, URLSearchParams, Headers } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
+import { Observable } from 'rxjs/Observable';
+
 //import {ApartmentAutocompleteService} from '../autocomplete/autocomplete';
 
 /**
@@ -41,18 +43,19 @@ export class Api {
   }
 
   addPackages(body: any) {
-    let postUrl = 'http://127.0.0.1:8000/packages/';
+    let postUrl = 'http://packagerat.pythonanywhere.com/packages/';
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let poptions = new RequestOptions({ headers: headers });
 
     let newPackages;
 
     return this.http.post(postUrl, body, poptions).toPromise()
-      .then(response => newPackages = response.json());
+      .then(response => newPackages = response.json())
+      .catch(this.handleError);
   }
 
   getPackages() {
-    let packagesUrl = 'http://127.0.0.1:8000/packages/';
+    let packagesUrl = 'https://packagerat.pythonanywhere.com/packages/';
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let poptions = new RequestOptions({ headers: headers });
 
@@ -61,6 +64,17 @@ export class Api {
     return this.http.get(packagesUrl, poptions).toPromise()
       .then(response => p2 = response.json())
       .then();
+  }
+
+  getPackagesByApartment(apartment_no) {
+    let packagesUrl = 'https://packagerat.pythonanywhere.com/packages/' + apartment_no;
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let poptions = new RequestOptions({ headers: headers });
+
+    let p2;
+
+    return this.http.get(packagesUrl, poptions).toPromise()
+      .then(response => p2 = response.json());
   }
 
   put(endpoint: string, body: any, options?: RequestOptions) {
@@ -74,4 +88,14 @@ export class Api {
   patch(endpoint: string, body: any, options?: RequestOptions) {
     return this.http.put(this.url + '/' + endpoint, body, options);
   }
+
+
+  private handleError (error: any) {
+        // In a real world app, we might use a remote logging infrastructure
+        // We'd also dig deeper into the error to get a better message
+        let errMsg = (error.message) ? error.message :
+            error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+        console.error(errMsg); // log to console instead
+        return Observable.throw(errMsg);
+    }
 }

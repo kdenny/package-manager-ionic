@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
+import { ModalController, ViewController } from 'ionic-angular';
+import {ProfileModal} from './profile';
 
 /**
  * The Welcome Page is a splash page that quickly describes the app,
@@ -14,7 +16,7 @@ import { IonicPage, NavController } from 'ionic-angular';
 })
 export class WelcomePage {
 
-  constructor(public navCtrl: NavController) { }
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController) { }
 
   login() {
     this.navCtrl.push('LoginPage');
@@ -23,4 +25,16 @@ export class WelcomePage {
   signup() {
     this.navCtrl.push('SignupPage');
   }
+
+  presentProfileModal() {
+   let profileModal = this.modalCtrl.create(ProfileModal, { userId: 8675309 });
+   profileModal.onDidDismiss(data => {
+     console.log(data);
+   });
+   profileModal.present();
+ }
+
+
 }
+
+
