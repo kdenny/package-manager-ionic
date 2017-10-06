@@ -73,7 +73,7 @@ export class TutorialPage implements OnInit{
          }
        );
        pickupModal.onDidDismiss(data => {
-         console.log(data);
+         this.api.packages = data;
        });
        pickupModal.present();
     })
