@@ -31,5 +31,10 @@
 
     </ion-item>
   </ion-row>
-  <button (click)="dismiss()">Click Me</button>
+  <ion-row *ngIf="confirmMode">
+    <signature-pad [options]="signaturePadOptions" (onEndEvent)="drawComplete()"></signature-pad>
+  </ion-row>
+  <div *ngIf="confirmMode">
+      <button ion-button color="dark" [disabled]="!isSigned" (click)="dismiss()">Pickup {{selectedPackages.length}} of {{packages.length}} packages</button>
+  </div>
 </ion-content>

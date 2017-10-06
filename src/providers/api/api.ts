@@ -12,7 +12,8 @@ import { Observable } from 'rxjs/Observable';
  */
 @Injectable()
 export class Api {
-  url: string = 'https://example.com/api/v1';
+  url: string = 'http://packagerat.pythonanywhere.com/';
+  //url: string = 'http://127.0.0.1:8000/';
   packages = [];
   newPackages = null;
 
@@ -43,7 +44,7 @@ export class Api {
   }
 
   addPackages(body: any) {
-    let postUrl = 'http://packagerat.pythonanywhere.com/packages/';
+    let postUrl = this.url + 'packages/';
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let poptions = new RequestOptions({ headers: headers });
 
@@ -55,7 +56,7 @@ export class Api {
   }
 
   getPackages() {
-    let packagesUrl = 'https://packagerat.pythonanywhere.com/packages/';
+    let packagesUrl = this.url + 'packages/';
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let poptions = new RequestOptions({ headers: headers });
 
@@ -67,13 +68,24 @@ export class Api {
   }
 
   getPackagesByApartment(apartment_no) {
-    let packagesUrl = 'https://packagerat.pythonanywhere.com/packages/' + apartment_no;
+    let packagesUrl = this.url + 'packages/' + apartment_no;
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let poptions = new RequestOptions({ headers: headers });
 
     let p2;
 
     return this.http.get(packagesUrl, poptions).toPromise()
+      .then(response => p2 = response.json());
+  }
+
+  addPickup(body) {
+    let packagesUrl = this.url + 'package_pickup/';
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let poptions = new RequestOptions({ headers: headers });
+
+    let p2;
+
+    return this.http.post(packagesUrl, body, poptions).toPromise()
       .then(response => p2 = response.json());
   }
 
