@@ -26,7 +26,7 @@
         </ion-row>
         <ion-row>
           <ion-list *ngIf="filter.searchText">
-            <ion-item *ngFor="let package of api.newPackages" (click)="recordPickup(package.id)">
+            <ion-item *ngFor="let package of api.newPackages" (click)="recordPickup(package.apartment_no.number)">
               <ion-avatar item-start *ngIf="package.package_type=='Envelope'">
                 <ion-icon name="mail"></ion-icon>
               </ion-avatar>
@@ -61,43 +61,6 @@
 
         </ion-row>
 
-
-
-
-        <!--<ion-row>-->
-          <!--<ion-col col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6>-->
-            <!--<ion-card (click)="recordDelivery()" [class.inactive]="mode=='pickup'">-->
-              <!--<ion-card-content>-->
-                <!--<ion-row>-->
-                  <!--<ion-icon class="button-icon" name="md-filing"></ion-icon>-->
-                <!--</ion-row>-->
-                <!--<ion-row>-->
-                  <!--<h3 class="button-label">Delivery</h3>-->
-                <!--</ion-row>-->
-              <!--</ion-card-content>-->
-            <!--</ion-card>-->
-          <!--</ion-col>-->
-          <!--<ion-col col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 [class.inactive]="mode=='delivery'">-->
-            <!--<ion-card (click)="recordPickup()">-->
-              <!--<ion-card-content>-->
-                <!--<ion-row >-->
-                  <!--<ion-icon class="button-icon" name="ios-arrow-dropup-circle"></ion-icon>-->
-                <!--</ion-row>-->
-                <!--<ion-row>-->
-                  <!--<h3 class="button-label">Pick Up</h3>-->
-                <!--</ion-row>-->
-              <!--</ion-card-content>-->
-            <!--</ion-card>-->
-          <!--</ion-col>-->
-        <!--</ion-row>-->
-        <!--<ion-row class="search-form" *ngIf="!autocomplete.selectedApartment && mode=='delivery'">-->
-            <!--<h2>Delivery Recipient</h2>-->
-            <!--<ion-auto-complete [dataProvider]="autocomplete" (itemSelected)="itemSelected($event)" [options]="{ placeholder : 'Enter Apartment Number or Resident Name' }"></ion-auto-complete>-->
-        <!--</ion-row>-->
-        <!--<ion-row class="search-form" *ngIf="!autocomplete.selectedApartment && mode=='pickup'">-->
-            <!--<h2>Pick Up Package For:</h2>-->
-            <!--<ion-auto-complete [dataProvider]="autocomplete" (itemSelected)="itemSelected($event)" [options]="{ placeholder : 'Enter Apartment Number or Resident Name' }"></ion-auto-complete>-->
-        <!--</ion-row>-->
       </ion-col>
     </ion-row>
 

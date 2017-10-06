@@ -1,20 +1,18 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { TutorialPage } from './tutorial';
-import { TranslateModule } from '@ngx-translate/core';
+import { HomePage } from './home';
 import { AutoCompleteModule } from 'ionic2-auto-complete';
 
 @NgModule({
   declarations: [
-    TutorialPage
+    HomePage
   ],
   imports: [
-    IonicPageModule.forChild(TutorialPage),
-    TranslateModule.forChild(),
+    IonicPageModule.forChild(HomePage),
     AutoCompleteModule
   ],
   exports: [
-    TutorialPage
+    HomePage
   ]
 })
 export class TutorialPageModule { }

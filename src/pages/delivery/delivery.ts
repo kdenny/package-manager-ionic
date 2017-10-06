@@ -50,7 +50,7 @@ export class DeliveryPage {
   }
 
   goBackHome() {
-    this.navCtrl.setRoot('TutorialPage', {}, {
+    this.navCtrl.setRoot('HomePage', {}, {
       animate: true,
       direction: 'back'
     });

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, MenuController, NavController, ModalController, Platform } from 'ionic-angular';
 
-import { TranslateService } from '@ngx-translate/core';
 import { ApartmentAutocompleteService } from '../../providers/autocomplete/autocomplete';
 import { ApartmentFilterService } from '../../providers/autocomplete/filter';
 
@@ -11,11 +10,11 @@ import { PickupModal } from '../pickup/pickup';
 
 @IonicPage()
 @Component({
-  selector: 'page-tutorial',
-  templateUrl: 'tutorial.html'
+  selector: 'page-home',
+  templateUrl: 'home.html'
 })
 
-export class TutorialPage implements OnInit{
+export class HomePage implements OnInit{
   slide: {};
   showSkip = true;
   dir: string = 'ltr';
@@ -25,7 +24,7 @@ export class TutorialPage implements OnInit{
   searchText;
   currentPackages = [];
 
-  constructor(public navCtrl: NavController, public menu: MenuController, translate: TranslateService,
+  constructor(public navCtrl: NavController, public menu: MenuController,
               public modalCtrl: ModalController,
               public platform: Platform, public autocomplete: ApartmentAutocompleteService, public api: Api, public filter: ApartmentFilterService) {
     this.dir = platform.dir();
@@ -36,13 +35,6 @@ export class TutorialPage implements OnInit{
             image: 'assets/img/westlofts-logo.png',
           }
         ;
-  }
-
-  startApp() {
-    this.navCtrl.setRoot('WelcomePage', {}, {
-      animate: true,
-      direction: 'forward'
-    });
   }
 
   ngOnInit() {
@@ -95,28 +87,11 @@ export class TutorialPage implements OnInit{
 
   itemSelected(event) {
     this.autocomplete.selectedApartment = event;
-    if (this.mode == 'delivery') {
       this.navCtrl.setRoot('DeliveryPage', {}, {
         animate: true,
         direction: 'forward'
       });
-    }
-    if (this.mode == 'pickup') {
-      this.navCtrl.setRoot('WelcomePage', {}, {
-        animate: true,
-        direction: 'forward'
-      });
-    }
-  }
 
-  ionViewDidEnter() {
-    // the root left menu should be disabled on the tutorial page
-    this.menu.enable(false);
-  }
-
-  ionViewWillLeave() {
-    // enable the root left menu when leaving the tutorial page
-    this.menu.enable(true);
   }
 
 }

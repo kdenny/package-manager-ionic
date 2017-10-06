@@ -17,30 +17,6 @@ export class ApartmentAutocompleteService implements AutoCompleteService {
 
   }
 
-
-  //getResults(keyword:string) {
-  //  this.searchText = keyword;
-  //  if (keyword != '' && keyword != ' ') {
-  //    this.api.newPackages = this.api.packages.filter(item => item['apartment_no']['number'].startsWith(keyword) || item['recipient']['name'].startsWith(keyword));
-  //  }
-  //  else {
-  //    this.searchText = null;
-  //    this.api.newPackages = null;
-  //  }
-  //
-  //
-  //  return [];
-  //
-  //  //return this.http.get("http://127.0.0.1:8000/apartments/")
-  //  //  .map(
-  //  //    result =>
-  //  //    {
-  //  //      console.log(result.json())
-  //  //      return result.json()
-  //  //        .filter(item => item['number'].startsWith(keyword) )
-  //  //    });
-  //}
-
   getResults(keyword:string) {
     this.searchText = keyword;
     if (keyword != '' && keyword != ' ') {
